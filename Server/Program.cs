@@ -7,6 +7,7 @@ using VerifiedSeller.Server.AuthenticationManager;
 using VerifiedSeller.Server.Interfaces;
 using VerifiedSeller.Server.Models;
 using VerifiedSeller.Server.Services;
+using VerifiedSeller.Shared.Entities.Database;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -15,6 +16,7 @@ builder.Services.AddDbContext<ApiContext>
     (options =>
     options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
 builder.Services.AddTransient<ICategories, CategoriesManager>();
+builder.Services.AddTransient<IProducts, ProductsManager>();
 builder.Services.AddControllersWithViews();
 builder.Services.AddRazorPages();
 #region Swagger

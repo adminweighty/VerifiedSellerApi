@@ -14,7 +14,7 @@ namespace VerifiedSeller.Shared.Entities.Database
         public DateTimeOffset DateModified { get; set; }
         public string CreatedBy { get; set; }
         public string ModifiedBy { get; set; }
-        public int StatusId { get; set; }
+        public int status { get; set; }
 
     }
 }

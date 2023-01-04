@@ -15,8 +15,8 @@ namespace VerifiedSeller.Server.Models
         public virtual DbSet<Buyers>? Buyers { get; set; }
         public virtual DbSet<Currencies>? Currencies { get; set; }
         public virtual DbSet<Categories>? Categories { get; set; }
-        public virtual DbSet<MobileUsers>? MobileUsers { get; set; }
-
+        public virtual DbSet<MobileRegisteredUsers>? MobileRegisteredUsers { get; set; }
+        public virtual DbSet<SellerUsers>? SellersUsers { get; set; }
         public virtual DbSet<Products>? Products { get; set; }
         public virtual DbSet<SystemUsers>? SystemUsers { get; set; }
         public virtual DbSet<UserRoles>? UserRoles { get; set; }
@@ -29,7 +29,8 @@ namespace VerifiedSeller.Server.Models
                 entity.Property(e => e.BuyerType)
                      .HasMaxLength(255)
                      .IsUnicode(false);
-            });
+                entity.Property(e => e.status);
+             });
             modelBuilder.Entity<Currencies>(entity =>
             {
                 entity.HasKey("Id");
@@ -42,6 +43,7 @@ namespace VerifiedSeller.Server.Models
                 entity.Property(e => e.Symbol)
                      .HasMaxLength(255)
                      .IsUnicode(false);
+                entity.Property(e => e.status);
             });
             modelBuilder.Entity<Categories>(entity =>
             {
@@ -49,8 +51,58 @@ namespace VerifiedSeller.Server.Models
                 entity.Property(e => e.CategoryName)
                      .HasMaxLength(255)
                      .IsUnicode(false);
+                entity.Property(e => e.status);
             });
-            modelBuilder.Entity<MobileUsers>(entity =>
+            modelBuilder.Entity<SellerUsers>(entity =>
+            {
+                entity.HasKey("Id");
+                 entity.Property(e => e.PasswordHash)
+                         .HasMaxLength(255)
+                         .IsUnicode(false);
+                entity.Property(e => e.PasswordSalt)
+                         .HasMaxLength(255)
+                         .IsUnicode(false);
+                entity.Property(e => e.ActiveCode)
+                         .HasMaxLength(255)
+                         .IsUnicode(false);
+                entity.Property(e => e.RoleId);
+                entity.Property(e => e.DateCreated);
+                entity.Property(e => e.DateModified);
+                entity.Property(e => e.IsLocked);
+                entity.Property(e => e.PhoneNumber)
+                         .HasMaxLength(255)
+                         .IsUnicode(false);
+                entity.Property(e => e.Email)
+                         .HasMaxLength(255)
+                         .IsUnicode(false);
+                entity.Property(e => e.LockCount);
+                entity.Property(e => e.FirstName)
+                         .HasMaxLength(255)
+                         .IsUnicode(false);
+                entity.Property(e => e.LastName)
+                         .HasMaxLength(255)
+                         .IsUnicode(false);
+                entity.Property(e => e.CompanyName)
+                         .HasMaxLength(255)
+                         .IsUnicode(false);
+                entity.Property(e => e.Street)
+                         .HasMaxLength(255)
+                         .IsUnicode(false);
+                entity.Property(e => e.City)
+                     .HasMaxLength(255)
+                     .IsUnicode(false);
+                entity.Property(e => e.Country)
+                     .HasMaxLength(255)
+                     .IsUnicode(false);
+                entity.Property(e => e.ZipCode)
+                     .HasMaxLength(255)
+                     .IsUnicode(false);
+                entity.Property(e => e.SpecialityArea)
+                     .HasMaxLength(255)
+                     .IsUnicode(false);
+                entity.Property(e => e.status);
+            });
+            modelBuilder.Entity<MobileRegisteredUsers>(entity =>
             {
                 entity.HasKey("Id");
                 entity.Property(e => e.BuyerId);
@@ -77,30 +129,7 @@ namespace VerifiedSeller.Server.Models
                 entity.Property(e => e.Platform)
                          .HasMaxLength(255)
                          .IsUnicode(false);
-                entity.Property(e => e.FirstName)
-                         .HasMaxLength(255)
-                         .IsUnicode(false);
-                entity.Property(e => e.LastName)
-                         .HasMaxLength(255)
-                         .IsUnicode(false);
-                entity.Property(e => e.CompanyName)
-                         .HasMaxLength(255)
-                         .IsUnicode(false);
-                entity.Property(e => e.Street)
-                         .HasMaxLength(255)
-                         .IsUnicode(false);
-                entity.Property(e => e.City)
-                     .HasMaxLength(255)
-                     .IsUnicode(false);
-                entity.Property(e => e.Country)
-                     .HasMaxLength(255)
-                     .IsUnicode(false);
-                entity.Property(e => e.ZipCode)
-                     .HasMaxLength(255)
-                     .IsUnicode(false);
-                entity.Property(e => e.SpecialityArea)
-                     .HasMaxLength(255)
-                     .IsUnicode(false);
+                entity.Property(e => e.status);
             });
             modelBuilder.Entity<Products>(entity =>
             {
@@ -149,6 +178,7 @@ namespace VerifiedSeller.Server.Models
                 entity.Property(e => e.featureImageUrl_5)
                              .HasMaxLength(255)
                              .IsUnicode(false);
+                entity.Property(e => e.status);
             });
             modelBuilder.Entity<SystemUsers>(entity =>
             {
@@ -176,7 +206,7 @@ namespace VerifiedSeller.Server.Models
                        .HasMaxLength(255)
                        .IsUnicode(false);
                 entity.Property(e => e.LockCount);
-                entity.Property(e => e.Status);
+                entity.Property(e => e.status);
             });
             modelBuilder.Entity<UserRoles>(entity =>
             {
@@ -192,7 +222,7 @@ namespace VerifiedSeller.Server.Models
              .IsUnicode(false);
                 entity.Property(e => e.DateCreated);
                 entity.Property(e => e.DateModified);
-                entity.Property(e => e.StatusId);
+                entity.Property(e => e.status);
             });
             OnModelCreatingPartial(modelBuilder);
         }

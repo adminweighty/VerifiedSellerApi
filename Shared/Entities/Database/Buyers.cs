@@ -4,6 +4,7 @@
     {
         public int Id { get; set; }
         public string BuyerType { get; set; }
+        public int status { get; set; }
 
     }
 }

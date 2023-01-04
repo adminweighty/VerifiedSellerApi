@@ -29,7 +29,7 @@
         public string featureImageUrl_3 { get; set; }
         public string featureImageUrl_4 { get; set; }
         public string featureImageUrl_5 { get; set; }
-
+        public int status { get; set; }
 
     }
 }

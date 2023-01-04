@@ -14,6 +14,6 @@
         public string Username { get; set; }
         public string Email { get; set; }
         public int LockCount { get; set; }
-        public int Status { get; set; }
+        public int status { get; set; }
     }
 }
