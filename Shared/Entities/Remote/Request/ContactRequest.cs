@@ -3,7 +3,7 @@ using System.Text.Json.Serialization;
 
 namespace VerifiedSeller.Shared.Entities.Remote.Request
 {
-    class ContactRequest
+    public class ContactRequest
     {
         [Required]
         [JsonPropertyName("Fullnames")]
