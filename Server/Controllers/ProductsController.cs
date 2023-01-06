@@ -1,6 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using VerifiedSeller.Server.Interfaces;
-using VerifiedSeller.Shared.Entities.Database;
 using VerifiedSeller.Shared.Entities.Remote.Response;
 
 namespace VerifiedSeller.Server.Controllers

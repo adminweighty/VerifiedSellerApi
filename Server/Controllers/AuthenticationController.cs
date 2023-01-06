@@ -1,7 +1,6 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using VerifiedSeller.Server.Interfaces;
-using VerifiedSeller.Shared.Entities.Database;
 using VerifiedSeller.Shared.Entities.Remote.Request;
 using VerifiedSeller.Shared.Entities.Remote.Response;
 using RouteAttribute = Microsoft.AspNetCore.Mvc.RouteAttribute;

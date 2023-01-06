@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace VerifiedSeller.Shared.Entities.Remote.Request
+﻿namespace VerifiedSeller.Shared.Entities.Remote.Request
 {
     public class SystemUserCredentials
     {

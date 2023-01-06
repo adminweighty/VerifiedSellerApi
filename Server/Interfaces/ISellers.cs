@@ -1,6 +1,4 @@
-﻿
-using VerifiedSeller.Shared.Entities.Database;
-using VerifiedSeller.Shared.Entities.Remote.Response;
+﻿using VerifiedSeller.Shared.Entities.Remote.Response;
 
 namespace VerifiedSeller.Server.Interfaces
 {
