@@ -18,53 +18,53 @@ namespace VerifiedSeller.Server.Services
             {
 
                 var productList = (from s in _dbContext.Products
-                                  join sell in _dbContext.SellerUsers on s.sellerId equals sell.Id
-                                  join cat in _dbContext.Categories
-                                  on s.categoryId equals cat.Id
-                                  join curr in _dbContext.Currencies
-                                  on s.productCurrency equals curr.Id
-                                  where s.categoryId == categoryId
-                                  select new ProductResponse
-                                  {
-                                      productId = s.productId,
-                                      productName = s.productName,
-                                      productCode = s.productCode,
-                                      productCurrency = curr.Name,
-                                      productPrice = s.productPrice,
-                                      productRetailPrice = s.productRetailPrice,
-                                      productPriceDescription = s.productPriceDescription,
-                                      productDiscount = s.productDiscount,
-                                      productBrand = s.productBrand,
-                                      productLastUpdated = s.productLastUpdated,
-                                      productManufacturerDate = s.productManufacturerDate,
-                                      productExpiryDate = s.productExpiryDate,
-                                      productBarCode = s.productBarCode,
-                                      productUnit = s.productUnit,
-                                      productWeight = s.productWeight,
-                                      productHeight = s.productHeight,
-                                      productHeightUnit = s.productHeightUnit,
-                                      productQuantity = s.productQuantity,
-                                      productColor = s.productColor,
-                                      customer = sellPerson(sell),
-                                      categoryId = s.categoryId,
-                                      featureImageUrl = s.featureImageUrl,
-                                      featureImageUrl_1 = s.featureImageUrl_1,
-                                      featureImageUrl_2 = s.featureImageUrl_2,
-                                      featureImageUrl_3 = s.featureImageUrl_3,
-                                      featureImageUrl_4 = s.featureImageUrl_4,
-                                      featureImageUrl_5 = s.featureImageUrl_5,
-                                  }).ToList();
+                                   join sell in _dbContext.SellerUsers on s.sellerId equals sell.Id
+                                   join cat in _dbContext.Categories
+                                   on s.categoryId equals cat.Id
+                                   join curr in _dbContext.Currencies
+                                   on s.productCurrency equals curr.Id
+                                   where s.categoryId == categoryId
+                                   select new ProductResponse
+                                   {
+                                       productId = s.productId,
+                                       productName = s.productName,
+                                       productCode = s.productCode,
+                                       productCurrency = curr.Name,
+                                       productPrice = s.productPrice,
+                                       productRetailPrice = s.productRetailPrice,
+                                       productPriceDescription = s.productPriceDescription,
+                                       productDiscount = s.productDiscount,
+                                       productBrand = s.productBrand,
+                                       productLastUpdated = s.productLastUpdated,
+                                       productManufacturerDate = s.productManufacturerDate,
+                                       productExpiryDate = s.productExpiryDate,
+                                       productBarCode = s.productBarCode,
+                                       productUnit = s.productUnit,
+                                       productWeight = s.productWeight,
+                                       productHeight = s.productHeight,
+                                       productHeightUnit = s.productHeightUnit,
+                                       productQuantity = s.productQuantity,
+                                       productColor = s.productColor,
+                                       customer = sellPerson(sell),
+                                       categoryId = s.categoryId,
+                                       featureImageUrl = s.featureImageUrl,
+                                       featureImageUrl_1 = s.featureImageUrl_1,
+                                       featureImageUrl_2 = s.featureImageUrl_2,
+                                       featureImageUrl_3 = s.featureImageUrl_3,
+                                       featureImageUrl_4 = s.featureImageUrl_4,
+                                       featureImageUrl_5 = s.featureImageUrl_5,
+                                   }).ToList();
                 return productList;
             }
-            catch
+            catch (Exception e)
             {
                 return new List<ProductResponse>();
-            } 
+            }
 
 
         }
 
-        public SellerResponse sellPerson(SellerUsers sellerUsers)
+        private static SellerResponse sellPerson(SellerUsers sellerUsers)
         {
             SellerResponse sellerResponse = new SellerResponse();
             sellerResponse.SellerId = sellerUsers.Id;

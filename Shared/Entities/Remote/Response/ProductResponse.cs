@@ -13,12 +13,12 @@
         public string productBrand { get; set; }
         public DateTime productLastUpdated { get; set; }
         public DateTime productManufacturerDate { get; set; }
-        public DateTime productExpiryDate { get; set; }
+        public DateTime? productExpiryDate { get; set; }
         public string productBarCode { get; set; }
-        public double productUnit { get; set; }
+        public string productUnit { get; set; }
         public double productWeight { get; set; }
         public double productHeight { get; set; }
-        public double productHeightUnit { get; set; }
+        public string productHeightUnit { get; set; }
         public double productQuantity { get; set; }
         public string productColor { get; set; }
         public SellerResponse customer { get; set; }

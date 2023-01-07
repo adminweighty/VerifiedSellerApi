@@ -153,7 +153,9 @@ namespace VerifiedSeller.Server.Models
                      .IsUnicode(false);
                 entity.Property(e => e.productWeight);
                 entity.Property(e => e.productHeight);
-                entity.Property(e => e.productHeightUnit);
+                entity.Property(e => e.productHeightUnit)
+                         .HasMaxLength(255)
+                         .IsUnicode(false); ;
                 entity.Property(e => e.productQuantity);
                 entity.Property(e => e.productColor)
                          .HasMaxLength(255)
