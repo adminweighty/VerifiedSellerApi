@@ -1,13 +1,14 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using VerifiedSeller.Server.Interfaces;
 using VerifiedSeller.Shared.Entities.Remote.Response;
 using RouteAttribute = Microsoft.AspNetCore.Mvc.RouteAttribute;
 
-namespace GlobalStraw.Web.Server.Controllers
+namespace VerifiedSeller.Server.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-
+    [Authorize]
     public class SellersController : ControllerBase
     {
         private readonly ISellers _ISellers;

@@ -21,5 +21,8 @@ namespace VerifiedSeller.Shared.Entities.Remote.Request
         [JsonPropertyName("MobileNumber")]
         public string MobileNumber { get; set; }
 
+        [Required]
+        [JsonPropertyName("Platform")]
+        public string Platform { get; set; }
     }
 }

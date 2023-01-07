@@ -1,16 +1,15 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using System.Net;
 using VerifiedSeller.Server.Interfaces;
 using VerifiedSeller.Shared.Entities.Remote.Request;
-using VerifiedSeller.Shared.Entities.Remote.Response;
 using RouteAttribute = Microsoft.AspNetCore.Mvc.RouteAttribute;
 
-namespace GlobalStraw.Web.Server.Controllers
+namespace VerifiedSeller.Server.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-
-    public class AuthenticationController : ControllerBase
+     public class AuthenticationController : ControllerBase
     {
         private readonly ISystemUser _ISystemUser;
         public AuthenticationController(ISystemUser iSystemUser)
@@ -18,42 +17,141 @@ namespace GlobalStraw.Web.Server.Controllers
             _ISystemUser = iSystemUser;
         }
         [HttpPost("Login")]
-        [Authorize]
-        public async Task<ResponseInfo<LoginResult>> LoginUser(LoginRequest loginRequest)
+        public async Task<IActionResult> LoginUser(LoginRequest loginRequest)
         {
-            return await Task.FromResult(_ISystemUser.LoginUser(loginRequest));
+            var response= await Task.FromResult(_ISystemUser.LoginUser(loginRequest));
+
+            if (response.Code==HttpStatusCode.OK.ToString())
+            {
+                return Ok(response);
+            }
+            else if (response.Code == HttpStatusCode.Unauthorized.ToString())
+            {
+                return Unauthorized(response);
+            }
+            else if (response.Code == HttpStatusCode.BadRequest.ToString())
+            {
+                return BadRequest(response);
+            }
+            else
+            {
+                return NotFound();
+            }
+            
         }
         [HttpPost("Register")]
-        [Authorize]
-        public async Task<ResponseInfo> RegisterUser(RegisterRequest registerRequest)
+        public async Task<IActionResult> RegisterUser(RegisterRequest registerRequest)
         {
-            return await Task.FromResult(_ISystemUser.RegisterUser(registerRequest));
+            var response = await Task.FromResult(_ISystemUser.RegisterUser(registerRequest));
+            if (response.Code == HttpStatusCode.OK.ToString())
+            {
+                return Ok(response);
+            }
+            else if (response.Code == HttpStatusCode.Unauthorized.ToString())
+            {
+                return Unauthorized(response);
+            }
+            else if (response.Code == HttpStatusCode.BadRequest.ToString())
+            {
+                return BadRequest(response);
+            }
+            else
+            {
+                return NotFound();
+            }
+
         }
         [HttpPost("ResetPassword")]
-        [Authorize]
-        public async Task<ResponseInfo> RegisterUser(ResetPasswordRequest resetPasswordRequest)
+        public async Task<IActionResult> RegisterUser(ResetPasswordRequest resetPasswordRequest)
         {
-            return await Task.FromResult(_ISystemUser.ResetPassword(resetPasswordRequest));
+            var response = await Task.FromResult(_ISystemUser.ResetPassword(resetPasswordRequest));
+            if (response.Code == HttpStatusCode.OK.ToString())
+            {
+                return Ok(response);
+            }
+            else if (response.Code == HttpStatusCode.Unauthorized.ToString())
+            {
+                return Unauthorized(response);
+            }
+            else if (response.Code == HttpStatusCode.BadRequest.ToString())
+            {
+                return BadRequest(response);
+            }
+            else
+            {
+                return NotFound();
+            }
+
         }
         [HttpPut("ChangePassword")]
-        [Authorize]
-        public async Task<ResponseInfo> ChangePassword(SystemUserCredentials systemUserCredentials)
+        public async Task<IActionResult> ChangePassword(SystemUserCredentials systemUserCredentials)
         {
-            return await Task.FromResult(_ISystemUser.ChangePassword(systemUserCredentials));
+            var response = await Task.FromResult(_ISystemUser.ChangePassword(systemUserCredentials));
+            if (response.Code == HttpStatusCode.OK.ToString())
+            {
+                return Ok(response);
+            }
+            else if (response.Code == HttpStatusCode.Unauthorized.ToString())
+            {
+                return Unauthorized(response);
+            }
+            else if (response.Code == HttpStatusCode.BadRequest.ToString())
+            {
+                return BadRequest(response);
+            }
+            else
+            {
+                return NotFound();
+            }
+
         }
 
         [HttpPost("Contact")]
-        [Authorize]
-        public async Task<ResponseInfo> Contact(ContactRequest contactRequest)
+        public async Task<IActionResult> Contact(ContactRequest contactRequest)
         {
-            return await Task.FromResult(_ISystemUser.ContactUser(contactRequest));
+            var response = await Task.FromResult(_ISystemUser.ContactUser(contactRequest));
+            if (response.Code == HttpStatusCode.OK.ToString())
+            {
+                return Ok(response);
+            }
+            else if (response.Code == HttpStatusCode.Unauthorized.ToString())
+            {
+                return Unauthorized(response);
+            }
+            else if (response.Code == HttpStatusCode.BadRequest.ToString())
+            {
+                return BadRequest(response);
+            }
+            else
+            {
+                return NotFound();
+            }
+
         }
 
         [HttpPost("OptOut")]
-        [Authorize]
-        public async Task<ResponseInfo> DeRegister(OptOutRequest optOutRequest)
+        public async Task<IActionResult> DeRegister(OptOutRequest optOutRequest)
         {
-            return await Task.FromResult(_ISystemUser.DeRegister(optOutRequest));
+            var response = await Task.FromResult(_ISystemUser.DeRegister(optOutRequest));
+            if (response.Code == HttpStatusCode.OK.ToString())
+            {
+                return Ok(response);
+            }
+            else if (response.Code == HttpStatusCode.Unauthorized.ToString())
+            {
+                return Unauthorized(response);
+            }
+            else if (response.Code == HttpStatusCode.BadRequest.ToString())
+            {
+                return BadRequest(response);
+            }
+            else
+            {
+                return NotFound();
+            }
+
         }
+
+
     }
 }

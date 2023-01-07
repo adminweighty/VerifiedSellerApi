@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using VerifiedSeller.Server.Interfaces;
 using VerifiedSeller.Shared.Entities.Remote.Response;
 
@@ -6,6 +7,7 @@ namespace VerifiedSeller.Server.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
+    [Authorize]
     public class ProductsController : ControllerBase
     {
         private readonly IProducts _IProducts;
