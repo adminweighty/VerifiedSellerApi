@@ -17,8 +17,8 @@ namespace VerifiedSeller.Server.Services
             try
             {
 
-                var productList = from s in _dbContext.Products
-                                  join sell in _dbContext.SellersUsers on s.sellerId equals sell.Id
+                var productList = (from s in _dbContext.Products
+                                  join sell in _dbContext.SellerUsers on s.sellerId equals sell.Id
                                   join cat in _dbContext.Categories
                                   on s.categoryId equals cat.Id
                                   join curr in _dbContext.Currencies
@@ -53,13 +53,15 @@ namespace VerifiedSeller.Server.Services
                                       featureImageUrl_3 = s.featureImageUrl_3,
                                       featureImageUrl_4 = s.featureImageUrl_4,
                                       featureImageUrl_5 = s.featureImageUrl_5,
-                                  };
-                return productList.ToList();
+                                  }).ToList();
+                return productList;
             }
             catch
             {
-                throw;
-            }
+                return new List<ProductResponse>();
+            } 
+
+
         }
 
         public SellerResponse sellPerson(SellerUsers sellerUsers)

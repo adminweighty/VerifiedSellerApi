@@ -17,6 +17,7 @@ builder.Services.AddDbContext<ApiContext>
 builder.Services.AddTransient<ICategories, CategoriesManager>();
 builder.Services.AddTransient<IProducts, ProductsManager>();
 builder.Services.AddTransient<ISystemUser, SystemManager>();
+builder.Services.AddTransient<ISellers, SellerManager>();
 builder.Services.AddControllersWithViews();
 builder.Services.AddRazorPages();
 #region Swagger

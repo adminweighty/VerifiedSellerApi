@@ -9,7 +9,7 @@ namespace VerifiedSeller.Shared.Entities.Remote.Response
         [JsonPropertyName("message")]
         public string ResponseMessage { get; set; }
         [JsonPropertyName("data")]
-        public T Data { get; set; }
+        public T Data  { get; set; }
         [JsonPropertyName("code")]
         public string Code { get; set; }
 

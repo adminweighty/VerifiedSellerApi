@@ -16,7 +16,7 @@ namespace VerifiedSeller.Server.Models
         public virtual DbSet<Currencies>? Currencies { get; set; }
         public virtual DbSet<Categories>? Categories { get; set; }
         public virtual DbSet<MobileRegisteredUsers>? MobileRegisteredUsers { get; set; }
-        public virtual DbSet<SellerUsers>? SellersUsers { get; set; }
+        public virtual DbSet<SellerUsers>? SellerUsers { get; set; }
         public virtual DbSet<Products>? Products { get; set; }
         public virtual DbSet<SystemUsers>? SystemUsers { get; set; }
         public virtual DbSet<UserRoles>? UserRoles { get; set; }

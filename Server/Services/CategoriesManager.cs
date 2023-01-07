@@ -20,7 +20,7 @@ namespace VerifiedSeller.Server.Services
             }
             catch
             {
-                throw;
+               return new List<Categories>();
             }
         }
        

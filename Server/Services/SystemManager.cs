@@ -8,10 +8,7 @@ using VerifiedSeller.Shared.Entities.Database;
 using VerifiedSeller.Shared.Entities.Local;
 using VerifiedSeller.Shared.Entities.Remote.Request;
 using VerifiedSeller.Shared.Entities.Remote.Response;
-using LoginRequest = VerifiedSeller.Shared.Entities.Remote.Request.LoginRequest;
-using LoginResult = VerifiedSeller.Shared.Entities.Remote.Response.LoginResult;
-using RegisterRequest = VerifiedSeller.Shared.Entities.Remote.Request.RegisterRequest;
-using ResetPasswordRequest = VerifiedSeller.Shared.Entities.Remote.Request.ResetPasswordRequest;
+
 
 namespace VerifiedSeller.Server.Services
 {
@@ -36,17 +33,18 @@ namespace VerifiedSeller.Server.Services
         public ResponseInfo<LoginResult> LoginUser(LoginRequest loginRequest)
         {
             var responseObject = new ResponseInfo<LoginResult>();
-            var user = _dbContext.MobileRegisteredUsers.Where(a => a.Email.Equals(loginRequest.Email) && a.status==1).FirstOrDefault();
+            var user = _dbContext.MobileRegisteredUsers.Where(a => a.Email.Equals(loginRequest.Email) && a.status==1).ToList();
 
-            if (user == null)
+            if (user.Count==0)
             {
                 responseObject.Code = HttpStatusCode.Unauthorized.ToString();
                 responseObject.ResponseStatus = false;
                 responseObject.ResponseMessage = "Incorrect Credentials";
                 return responseObject;
             }
+            var myUser=user.FirstOrDefault();
 
-            var isAuth = PasswordHash.From(user.PasswordHash, user.PasswordSalt).Verify(loginRequest.Password);
+            var isAuth = PasswordHash.From(myUser.PasswordHash, myUser.PasswordSalt).Verify(loginRequest.Password);
 
             if (!isAuth)
             {
@@ -57,9 +55,9 @@ namespace VerifiedSeller.Server.Services
             ClaimsIdentity claims = new ClaimsIdentity();
 
             claims = new ClaimsIdentity(new[] {
-                new Claim(ClaimTypes.Name, user.Email),
-                new Claim(ClaimTypes.NameIdentifier, user.Email),
-                new Claim("UserId", user.Id.ToString()),
+                new Claim(ClaimTypes.Name, myUser.Email),
+                new Claim(ClaimTypes.NameIdentifier, myUser.Email),
+                new Claim("UserId", myUser.Id.ToString()),
                 new Claim(ClaimTypes.Role, "User"),
                 }, "ApplicationCookie");
 
@@ -70,11 +68,11 @@ namespace VerifiedSeller.Server.Services
 
             var resultToken = new LoginResult
             {
-                UserId = user.Id.ToString(),
+                UserId = myUser.Id.ToString(),
                 AccessToken = authResult.AccessToken,
                 RefreshToken = authResult.RefreshToken,
-                UserRole = user.RoleId.ToString(),
-                Email = user.Email.ToString(),
+                UserRole = myUser.RoleId.ToString(),
+                Email = myUser.Email.ToString(),
             };
 
             responseObject.ResponseStatus = true;
@@ -86,13 +84,26 @@ namespace VerifiedSeller.Server.Services
         {
            
             var responseObject = new ResponseInfo();
-         var userExists = _dbContext.MobileRegisteredUsers.FirstOrDefault(a => a.Email.Equals(registerRequest.Email));
 
-            if (userExists != null)
+         var userExists = _dbContext.MobileRegisteredUsers.Where(a => a.Email.Equals(registerRequest.Email)).ToList();
+
+            var phoneExists = _dbContext.MobileRegisteredUsers.Where(a => a.PhoneNumber.Equals(registerRequest.MobileNumber)).ToList();
+
+
+            Buyers? getBuyerDetails = _dbContext.Buyers.Where(a => a.BuyerType.Equals(registerRequest.Buyer)).FirstOrDefault();
+
+            if (userExists.Count != 0)
             {
                 responseObject.Code = HttpStatusCode.BadRequest.ToString();
                 responseObject.ResponseStatus = false;
-                responseObject.ResponseMessage = "ID Number already taken";
+                responseObject.ResponseMessage = "Email already taken";
+                return responseObject;
+            }
+            if (phoneExists.Count != 0)
+            {
+                responseObject.Code = HttpStatusCode.BadRequest.ToString();
+                responseObject.ResponseStatus = false;
+                responseObject.ResponseMessage = "Phone already taken";
                 return responseObject;
             }
             MobileRegisteredUsers newUser = new MobileRegisteredUsers();
@@ -104,10 +115,14 @@ namespace VerifiedSeller.Server.Services
             newUser.DateModified = DateTimeOffset.UtcNow;
             newUser.Platform = registerRequest.Platform;
             newUser.PhoneNumber = registerRequest.MobileNumber;
+            newUser.BuyerId = getBuyerDetails.Id;
+            newUser.status = 1;
+            newUser.RoleId = 2;
             string activationtoken = Guid.NewGuid().ToString();
             newUser.ActiveCode = activationtoken;
             _dbContext.Add(newUser);
             _dbContext.SaveChanges();
+
             responseObject.ResponseMessage = "Account Created Successfully.";           
             responseObject.ResponseStatus = true;
             responseObject.Code = HttpStatusCode.OK.ToString();
@@ -117,7 +132,7 @@ namespace VerifiedSeller.Server.Services
         {
             var responseObjects = new ResponseInfo();
 
-            var systemUsers = _dbContext.MobileRegisteredUsers.Where(a=>a.Email.Equals(resetPasswordRequest)).FirstOrDefault();
+            var systemUsers = _dbContext.MobileRegisteredUsers.Where(a=>a.Email.Equals(resetPasswordRequest.Email)).FirstOrDefault();
             if (systemUsers != null)
             {
                 var hash = PasswordHash.Generate(ApiConstants.DEFAULT_PASSWORD);
@@ -127,6 +142,7 @@ namespace VerifiedSeller.Server.Services
                 systemUsers.DateModified = DateTimeOffset.UtcNow;
                 _dbContext.Entry(systemUsers).State = EntityState.Modified;
                 _dbContext.SaveChanges();
+                responseObjects.Code = HttpStatusCode.OK.ToString();
             }
             else
             {
@@ -153,6 +169,7 @@ namespace VerifiedSeller.Server.Services
                 systemUsers.DateModified = DateTimeOffset.UtcNow;
                 _dbContext.Entry(systemUsers).State = EntityState.Modified;
                 _dbContext.SaveChanges();
+                responseObjects.Code = HttpStatusCode.OK.ToString();
             }
             else
             {
@@ -176,6 +193,7 @@ namespace VerifiedSeller.Server.Services
                 systemUsers.DateModified = DateTimeOffset.UtcNow;
                 _dbContext.Entry(systemUsers).State = EntityState.Modified;
                 _dbContext.SaveChanges();
+                responseObjects.Code = HttpStatusCode.OK.ToString();
             }
             else
             {
@@ -186,7 +204,6 @@ namespace VerifiedSeller.Server.Services
             }
             responseObjects.ResponseMessage = "Account deregistered";
             responseObjects.ResponseStatus = true;
-            responseObjects.Code = HttpStatusCode.OK.ToString();
             return responseObjects;
         }
     }
