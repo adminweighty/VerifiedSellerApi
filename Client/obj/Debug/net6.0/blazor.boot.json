@@ -196,15 +196,15 @@
       "mscorlib.dll": "sha256-cx\/3nJhFns3tZhQNQOyiRyKJESKxOjLVufzWnri6KSA=",
       "netstandard.dll": "sha256-yWufW5W4SSfjocBcWTEDqnFwTd\/VYtLMc2Y9mPmlggc=",
       "System.Private.CoreLib.dll": "sha256-H009wzPwRoDZlwvpN4KLCsUwN7Y1AmjKB3PIEHA7ObQ=",
-      "VerifiedSeller.Shared.dll": "sha256-MhFa\/0cSkV8ohyYR0szwgto1uVJ7hqVzb31gLV4BvjI=",
-      "VerifiedSeller.Client.dll": "sha256-J2INxVF3PRje\/XAljqEDbECjsOeYn0KP6tB9diMtKis="
+      "VerifiedSeller.Shared.dll": "sha256-byEVWTftCY4ROmp+ZCZsZF6tC5nThNVdjzeSjKAXMsc=",
+      "VerifiedSeller.Client.dll": "sha256-1NHZ8GbphK5k2I\/55GGCAt2uYgzozjj2zSgzFsMKu9s="
     },
     "extensions": null,
     "lazyAssembly": null,
     "libraryInitializers": null,
     "pdb": {
-      "VerifiedSeller.Shared.pdb": "sha256-hGjlAO+87yrcCxIXql\/HaiQe7hwXFJc1YHxtRLj45ac=",
-      "VerifiedSeller.Client.pdb": "sha256-ggGoroFmZVB0IiPkvszPzlaIIjNmJaJNiEXToQhXojg="
+      "VerifiedSeller.Shared.pdb": "sha256-3v7PH\/T8zWCgAwLPPt3x\/3wK+B3TjsaVvUxtOptJouw=",
+      "VerifiedSeller.Client.pdb": "sha256-uuZsAwHTZiW2QemJz6iP+j1fqHXAPTTtILKnmeSzmys="
     },
     "runtime": {
       "dotnet.6.0.11.qyyrkvd9ti.js": "sha256-F30V+6jU3jwJYFZoLuwMAqzTiOXu6q7zGgOdjYBofDI=",

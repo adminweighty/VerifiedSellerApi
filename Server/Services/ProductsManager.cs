@@ -29,7 +29,7 @@ namespace VerifiedSeller.Server.Services
                                        productId = s.productId,
                                        productName = s.productName,
                                        productCode = s.productCode,
-                                       productCurrency = curr.Name,
+                                       productCurrency = curr.Symbol,
                                        productPrice = s.productPrice,
                                        productRetailPrice = s.productRetailPrice,
                                        productPriceDescription = s.productPriceDescription,

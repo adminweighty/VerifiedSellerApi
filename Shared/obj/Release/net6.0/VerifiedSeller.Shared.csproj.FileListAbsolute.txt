@@ -1,0 +1,12 @@
+C:\Users\User\source\repos\VerifiedSeller\Shared\bin\Release\net6.0\VerifiedSeller.Shared.deps.json
+C:\Users\User\source\repos\VerifiedSeller\Shared\bin\Release\net6.0\VerifiedSeller.Shared.dll
+C:\Users\User\source\repos\VerifiedSeller\Shared\bin\Release\net6.0\VerifiedSeller.Shared.pdb
+C:\Users\User\source\repos\VerifiedSeller\Shared\obj\Release\net6.0\VerifiedSeller.Shared.csproj.AssemblyReference.cache
+C:\Users\User\source\repos\VerifiedSeller\Shared\obj\Release\net6.0\VerifiedSeller.Shared.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\User\source\repos\VerifiedSeller\Shared\obj\Release\net6.0\VerifiedSeller.Shared.AssemblyInfoInputs.cache
+C:\Users\User\source\repos\VerifiedSeller\Shared\obj\Release\net6.0\VerifiedSeller.Shared.AssemblyInfo.cs
+C:\Users\User\source\repos\VerifiedSeller\Shared\obj\Release\net6.0\VerifiedSeller.Shared.csproj.CoreCompileInputs.cache
+C:\Users\User\source\repos\VerifiedSeller\Shared\obj\Release\net6.0\VerifiedSeller.Shared.dll
+C:\Users\User\source\repos\VerifiedSeller\Shared\obj\Release\net6.0\refint\VerifiedSeller.Shared.dll
+C:\Users\User\source\repos\VerifiedSeller\Shared\obj\Release\net6.0\VerifiedSeller.Shared.pdb
+C:\Users\User\source\repos\VerifiedSeller\Shared\obj\Release\net6.0\ref\VerifiedSeller.Shared.dll

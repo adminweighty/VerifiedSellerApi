@@ -33,7 +33,12 @@ namespace VerifiedSeller.Server.Services
         public ResponseInfo<LoginResult> LoginUser(LoginRequest loginRequest)
         {
             var responseObject = new ResponseInfo<LoginResult>();
-            var user = _dbContext.MobileRegisteredUsers.Where(a => a.Email.Equals(loginRequest.Email) && a.status==1).ToList();
+            var user = (from v in  _dbContext.MobileRegisteredUsers
+                       join b in _dbContext.Buyers 
+                       on v.BuyerId equals b.Id  
+                       where (v.Email.Equals(loginRequest.Email) && v.status == 1)
+                       select new { user=v , 
+                           buyer=b }).ToList();
 
             if (user.Count==0)
             {
@@ -44,7 +49,7 @@ namespace VerifiedSeller.Server.Services
             }
             var myUser=user.FirstOrDefault();
 
-            var isAuth = PasswordHash.From(myUser.PasswordHash, myUser.PasswordSalt).Verify(loginRequest.Password);
+            var isAuth = PasswordHash.From(myUser.user.PasswordHash, myUser.user.PasswordSalt).Verify(loginRequest.Password);
 
             if (!isAuth)
             {
@@ -55,25 +60,28 @@ namespace VerifiedSeller.Server.Services
             ClaimsIdentity claims = new ClaimsIdentity();
 
             claims = new ClaimsIdentity(new[] {
-                new Claim(ClaimTypes.Name, myUser.Email),
-                new Claim(ClaimTypes.NameIdentifier, myUser.Email),
-                new Claim("UserId", myUser.Id.ToString()),
+                new Claim(ClaimTypes.Name, myUser.user.Email),
+                new Claim(ClaimTypes.NameIdentifier, myUser.user.Email),
+                new Claim("UserId", myUser.user.Id.ToString()),
                 new Claim(ClaimTypes.Role, "User"),
                 }, "ApplicationCookie");
 
 
             var claimsPrincipal = new ClaimsPrincipal(claims);
 
-            var authResult = authManager.GenerateTokens(loginRequest.Email, claimsPrincipal.Claims.ToArray(), DateTime.Now);
+    
+            var finalAuth = authManager.GenerateTokens(loginRequest.Email, claimsPrincipal.Claims.ToArray(), DateTime.Now);
 
             var resultToken = new LoginResult
             {
-                UserId = myUser.Id.ToString(),
-                AccessToken = authResult.AccessToken,
-                RefreshToken = authResult.RefreshToken,
-                UserRole = myUser.RoleId.ToString(),
-                Email = myUser.Email.ToString(),
-            };
+                UserId = myUser.user.Id.ToString(),
+                AccessToken = finalAuth.AccessToken,
+                RefreshToken = finalAuth.RefreshToken,
+                UserRole = myUser.user.RoleId.ToString(),
+                Email = myUser.user.Email.ToString(),
+                Buyer=myUser.buyer.BuyerType.ToString(),
+                Mobile = myUser.user.PhoneNumber.ToString(),
+             };
 
             responseObject.ResponseStatus = true;
             responseObject.Data = resultToken;

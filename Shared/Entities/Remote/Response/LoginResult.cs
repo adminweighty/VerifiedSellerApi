@@ -14,7 +14,13 @@ namespace VerifiedSeller.Shared.Entities.Remote.Response
         [JsonPropertyName("user_email")]
         public string Email { get; set; }
 
-        [JsonPropertyName("access_token")]
+        [JsonPropertyName("buyer_type")]
+        public string Buyer { get; set; }
+
+        [JsonPropertyName("mobile_number")]
+        public string Mobile { get; set; }
+
+          [JsonPropertyName("access_token")]
         public AccessToken AccessToken { get; set; }
 
         [JsonPropertyName("refresh_token")]

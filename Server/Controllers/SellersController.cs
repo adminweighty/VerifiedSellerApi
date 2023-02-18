@@ -8,7 +8,6 @@ namespace VerifiedSeller.Server.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    [Authorize]
     public class SellersController : ControllerBase
     {
         private readonly ISellers _ISellers;

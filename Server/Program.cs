@@ -105,7 +105,7 @@ builder.Services.AddCors(options =>
            .AllowAnyMethod()
            .AllowAnyHeader()
            .AllowCredentials()
-           .WithOrigins("https://localhost:7186/");
+           .WithOrigins("https://www.globalstrawinvestmentstestzw.com");
     });
 });
 
